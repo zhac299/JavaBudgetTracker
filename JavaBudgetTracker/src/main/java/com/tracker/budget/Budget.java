@@ -75,4 +75,27 @@ public class Budget implements Serializable {
                 "Total Expenditures: " + totalExpenditures + " " +
                 "MoneyInOut: " + moneyInOut ;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Budget budget = (Budget) obj;
+
+        if (budget.getEstMonthlyBudget() != this.getEstMonthlyBudget()) {
+            return false;
+        } else if (budget.getMonthlyBudget() != this.getMonthlyBudget()) {
+            return false;
+        } else if (budget.getWeeklyBudget() != this.getWeeklyBudget()) {
+            return false;
+        } else if (budget.getEstWeeklyBudget() != this.getEstWeeklyBudget()) {
+            return false;
+        } else if (budget.getSavings() != this.getSavings()) {
+            return false;
+        } else if (budget.getMoneyInOut() != this.getMoneyInOut()) {
+            return false;
+        } else if (budget.getTotalExpendituress() != this.getTotalExpendituress()) {
+            return false;
+        }
+
+        return true;
+    }
 }
