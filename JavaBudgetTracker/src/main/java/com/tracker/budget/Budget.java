@@ -90,7 +90,7 @@ public class Budget implements Serializable {
             return false;
         } else if (budget.getSavings() != this.getSavings()) {
             return false;
-        } else if (budget.getMoneyInOut() != this.getMoneyInOut()) {
+        } else if (!(budget.getMoneyInOut().equals(this.getMoneyInOut()))) {
             return false;
         } else if (budget.getTotalExpendituress() != this.getTotalExpendituress()) {
             return false;
