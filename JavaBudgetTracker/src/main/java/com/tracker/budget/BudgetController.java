@@ -27,6 +27,9 @@ public class BudgetController {
 
             oi.close();
             fi.close();
+
+            budget = pr1; // set loaded budget to instance variable budget
+
             return pr1;
 
         } catch (FileNotFoundException e) {
@@ -40,7 +43,7 @@ public class BudgetController {
         return null;
     }
 
-    public Budget saveBudget(Budget budget) {
+    public Budget saveBudget() {
         try {
             FileOutputStream f = new FileOutputStream(new File("src/main/resources/myObjects.txt"));
             ObjectOutputStream o = new ObjectOutputStream(f);
@@ -60,22 +63,27 @@ public class BudgetController {
         return budget;
     }
 
-    public boolean calculateSavedVsTotalExpenditure() {
+    public boolean calculateOnTargetSavedVsTotalExpenditure() {
         double calc = budget.getSavings() - budget.getTotalExpendituress();
         return calc > 0 ? true : false; // if calc is positive then savings is more than expenditures
     }
 
-    public void addExpense(double amount, Budget budget) {
+    public double calculateSavedVsTotalExpenditure() {
+        double calc = budget.getSavings() - budget.getTotalExpendituress();
+        return calc; // difference of savings and expenditures is returned.
+    }
+
+    public void addExpense(double amount) {
         budget.moneyInOut.put(LocalDate.now(), amount);
         System.out.println(amount + " added on " + LocalDate.now());
     }
 
-    public void addExpense(double amount, Budget budget, LocalDate localDate) { // overloading the method from above to include localDate param
+    public void addExpense(double amount, LocalDate localDate) { // overloading the method from above to include localDate param
         budget.moneyInOut.put(LocalDate.now(), amount);
         System.out.println(amount + " added on " + LocalDate.now());
     }
 
-    public double calcWeeklyExpenditure(Budget budget) {
+    public double calcWeeklyExpenditure() {
         LinkedHashMap<LocalDate, Double> hashMap = budget.getMoneyInOut();
         Set<LocalDate> keySet = hashMap.keySet();
         LocalDate lastDateFromSet = getLastValueFromSet(keySet);
@@ -92,7 +100,7 @@ public class BudgetController {
         return calc;
     }
 
-    public double calcMonthlyExpenditure(Budget budget) {
+    public double calcMonthlyExpenditure() {
         LinkedHashMap<LocalDate, Double> hashMap = budget.getMoneyInOut();
         Set<LocalDate> keySet = hashMap.keySet();
         LocalDate lastDateFromSet = getLastValueFromSet(keySet);
