@@ -17,7 +17,7 @@ class BudgetControllerTest {
 
 
         if (b != null) {
-            assertSame(bc.loadBudget(), b);
+            assertTrue(b.equals(bc.loadBudget()));
         }
     }
 
@@ -39,6 +39,13 @@ class BudgetControllerTest {
 
     @Test
     void calculateSavedVsTotalExpenditure() {
+        BudgetController bc = new BudgetController();
+        Budget b = new Budget();
+
+        b.setEstSavings(100.00);
+        bc.addExpense(100.00, b);
+
+        assertEquals(0.00, bc.calculateSavedVsTotalExpenditure());
     }
 
     @Test
