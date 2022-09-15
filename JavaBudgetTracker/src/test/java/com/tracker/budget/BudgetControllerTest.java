@@ -86,8 +86,8 @@ class BudgetControllerTest {
         double sum = 0.00;
 
         for (int i = 0; i < 7; i++) {
-            bc.addExpense(100.00);
-            ld.plusDays(1);
+            bc.addExpense(100.00, ld);
+            ld = ld.plusDays(1);
             sum += 100;
         }
         assertEquals(sum, bc.calcWeeklyExpenditure());
@@ -99,13 +99,13 @@ class BudgetControllerTest {
         BudgetController bc = new BudgetController(b);
 
         LocalDate ld = LocalDate.now();
-        ld = ld.minusDays(30);
+        ld = ld.minusMonths(1);
 
         double sum = 0.00;
 
         for (int i = 0; i < 31; i++) {
-            bc.addExpense(100.00);
-            ld.plusDays(1);
+            bc.addExpense(100.00, ld);
+            ld = ld.plusDays(1);
             sum += 100;
         }
         assertEquals(sum, bc.calcMonthlyExpenditure());
