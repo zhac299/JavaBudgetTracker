@@ -79,8 +79,8 @@ public class BudgetController {
     }
 
     public void addExpense(double amount, LocalDate localDate) { // overloading the method from above to include localDate param
-        budget.moneyInOut.put(LocalDate.now(), amount);
-        System.out.println(amount + " added on " + LocalDate.now());
+        budget.moneyInOut.put(localDate, amount);
+        System.out.println(amount + " added on " + localDate);
     }
 
     public double calcWeeklyExpenditure() {
@@ -90,7 +90,7 @@ public class BudgetController {
         LocalDate priorWeekStartDate = lastDateFromSet.minusWeeks(1);
         double calc = 0.00;
 
-        while (priorWeekStartDate != lastDateFromSet) {
+        while (!(priorWeekStartDate.isAfter(lastDateFromSet))) {
             if (hashMap.get(priorWeekStartDate) != null) {
                 calc += hashMap.get(priorWeekStartDate);
             }
@@ -107,7 +107,7 @@ public class BudgetController {
         LocalDate priorMonthStartDate = lastDateFromSet.minusMonths(1);
         double calc = 0.00;
 
-        while (priorMonthStartDate != lastDateFromSet) {
+        while (!(priorMonthStartDate.isAfter(lastDateFromSet))) {
             if (hashMap.get(priorMonthStartDate) != null) {
                 calc += hashMap.get(priorMonthStartDate);
             }
@@ -116,6 +116,7 @@ public class BudgetController {
 
         return calc;
     }
+    
     private LocalDate getLastValueFromSet(Set<LocalDate> set) {
         LocalDate lastElement = null;
 
