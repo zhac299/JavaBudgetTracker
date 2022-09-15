@@ -10,11 +10,11 @@ class BudgetControllerTest {
 
     @Test
     void loadBudget() {
-        BudgetController bc = new BudgetController();
         Budget b = new Budget();
-        b.setEstSavings(1000.00);
-        bc.saveBudget(b);
+        BudgetController bc = new BudgetController(b);
 
+        b.setEstSavings(1000.00);
+        bc.saveBudget();
 
         if (b != null) {
             assertTrue(b.equals(bc.loadBudget()));
@@ -22,12 +22,12 @@ class BudgetControllerTest {
     }
 
     @Test
-    void saveBudget() {
-        BudgetController bc = new BudgetController();
+    void saveBudget() {        // maybe better way to test save
         Budget b = new Budget();
+        BudgetController bc = new BudgetController(b);
 
         b.setEstSavings(2000.00);
-        bc.saveBudget(b);
+        bc.saveBudget();
 
         Budget b2 = bc.loadBudget();
 
@@ -38,30 +38,47 @@ class BudgetControllerTest {
     }
 
     @Test
-    void calculateSavedVsTotalExpenditure() {
-        BudgetController bc = new BudgetController();
+    void calculateonTargetSavedVsTotalExpenditure() {        
         Budget b = new Budget();
+        BudgetController bc = new BudgetController(b);
 
         b.setEstSavings(100.00);
-        bc.addExpense(100.00, b);
+        bc.addExpense(100.00);
+
+        assertFalse(bc.calculateOnTargetSavedVsTotalExpenditure());
+
+        b.setEstSavings(200.00);
+        assertTrue(bc.calculateOnTargetSavedVsTotalExpenditure());
+    }
+
+    @Test
+    void calculateSavedVsTotalExpenditure() {        
+        Budget b = new Budget();
+        BudgetController bc = new BudgetController(b);
+
+        b.setEstSavings(100.00);
+        bc.addExpense(100.00);
 
         assertEquals(0.00, bc.calculateSavedVsTotalExpenditure());
+
+        b.setEstSavings(200.00);
+        assertEquals(100.00, bc.calculateSavedVsTotalExpenditure());
     }
 
     @Test
     void addExpense() {
-        BudgetController bc = new BudgetController();
         Budget b = new Budget();
+        BudgetController bc = new BudgetController(b);
 
-        bc.addExpense(150.00, b);
+        bc.addExpense(150.00);
 
         assertEquals(150, b.getTotalExpendituress());
     }
 
     @Test
     void calcWeeklyExpenditure() {
-        BudgetController bc = new BudgetController();
         Budget b = new Budget();
+        BudgetController bc = new BudgetController(b);
 
         LocalDate ld = LocalDate.now();
         ld = ld.minusWeeks(1);
@@ -69,17 +86,17 @@ class BudgetControllerTest {
         double sum = 0.00;
 
         for (int i = 0; i < 7; i++) {
-            bc.addExpense(100.00, b);
+            bc.addExpense(100.00);
             ld.plusDays(1);
             sum += 100;
         }
-        assertEquals(sum, bc.calcWeeklyExpenditure(b));
+        assertEquals(sum, bc.calcWeeklyExpenditure());
     }
 
     @Test
     void calcMonthlyExpenditure() {
-        BudgetController bc = new BudgetController();
         Budget b = new Budget();
+        BudgetController bc = new BudgetController(b);
 
         LocalDate ld = LocalDate.now();
         ld = ld.minusDays(30);
@@ -87,10 +104,10 @@ class BudgetControllerTest {
         double sum = 0.00;
 
         for (int i = 0; i < 31; i++) {
-            bc.addExpense(100.00, b);
+            bc.addExpense(100.00);
             ld.plusDays(1);
             sum += 100;
         }
-        assertEquals(sum, bc.calcMonthlyExpenditure(b), "Weekly expenditure calculated");
+        assertEquals(sum, bc.calcMonthlyExpenditure());
     }
 }
