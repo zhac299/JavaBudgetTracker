@@ -34,12 +34,12 @@ public class BudgetTrackerConsole {
 
         budget.created();
 
-        addBudget(budget, budgetController);
+        addExpense(budget, budgetController);
 
         scan.close();
     }
 
-    public static void addBudget(Budget budget, BudgetController budgetController) {
+    public static void addExpense(Budget budget, BudgetController budgetController) {
 
         boolean done = false;
 
