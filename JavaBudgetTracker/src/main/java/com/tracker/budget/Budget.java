@@ -10,6 +10,9 @@ public class Budget implements Serializable {
     private double estWeeklyBudget; // weekly budget goal
     private double estSavings; // savings goal
     private double totalExpenditures; // sum of all expenditures from moneyInOut
+
+    private boolean created = false; // value to check if Budget has been initially created
+
     LinkedHashMap<LocalDate, Double> moneyInOut = new LinkedHashMap<>(); // money going In and Out of budget
 
     public double getMonthlyBudget() {
@@ -41,6 +44,10 @@ public class Budget implements Serializable {
         return i;
     }
 
+    public boolean getCreated() {
+        return this.created;
+    }
+
     public LinkedHashMap<LocalDate, Double> getMoneyInOut() {
         return this.moneyInOut;
     }
@@ -63,6 +70,10 @@ public class Budget implements Serializable {
 
     public void setEstSavings(double estSavings) {
         this.estSavings = estSavings;
+    }
+
+    public void created() {
+        this.created = true;
     }
 
     @Override
