@@ -34,30 +34,45 @@ public class BudgetTrackerConsole {
 
         budget.created();
 
+        addBudget(budget, budgetController);
+
         scan.close();
     }
 
-    public static void addBudget() {
+    public static void addBudget(Budget budget, BudgetController budgetController) {
+
+        boolean done = false;
 
         System.out.println("Would you like to add an expenditure? Y/N");
         Scanner scan = new Scanner(System.in);
 
         if (scan.next().equals("Y")) {
+            
+            while (done == false) {
+                System.out.println("Please enter an expenditure: ");
+                budgetController.addExpense(scan.nextInt());
+                
+                System.out.println("Would you like to add another expenditure? Y/N");
+                
+                if (scan.next().equals("N")) {
+                    done = true;
+                }
+            }
+
+            showVariables(budget, budgetController);
 
         } else if (scan.next().equals("N")) {
-
+            showVariables(budget, budgetController);
         }
-
-        System.out.println("Please enter an expenditure: ");
 
         scan.close();
     }
 
-    public static void showVariables() {
+    public static void showVariables(Budget budget, BudgetController budgetController) {
         
     }
 
-    public static void save() {
+    public static void save(Budget budget, BudgetController budgetController) {
 
     }
     
