@@ -66,13 +66,20 @@ public class BudgetTrackerConsole {
             System.out.println("Would you like to view any specific variables? Y/N");
 
             boolean done2 = false;
+            String output = "";
 
             while (done2 == false) {
-                done2 = dialogueLoop(scan);
+                done2 = dialogueLoop(scan, output);
 
                 if (done2 == true) {
-                    System.out.println("Please select a variable: ");
-                    showVariables(budget, budgetController);
+                    if (output.equals("Y")) {
+                        System.out.println("Please select a variable: ");
+                        showVariables(budget, budgetController);
+                    } else if (output.equals("N")){
+                        budget.toString();
+                        System.out.println("Would you like to end the program? Y/N");
+                        dialogueLoop(scan, output);
+                    }
                 }
             }
         }
@@ -88,14 +95,16 @@ public class BudgetTrackerConsole {
 
     }
 
-    public static boolean dialogueLoop(Scanner scan) {
+    public static boolean dialogueLoop(Scanner scan, String output) {
         if (scan.next().equals("Y")) {
+            output = "Y";
             return true;
         } else if (scan.next().equals("N")) {
-            return false;
+            output = "N";
+            return true;
         } else {
             System.out.println("Please enter a valid value! Y/N");
-            return dialogueLoop(scan);           
+            return dialogueLoop(scan, output);           
         }
     }
     
