@@ -62,7 +62,19 @@ public class BudgetTrackerConsole {
             showVariables(budget, budgetController);
 
         } else if (scan.next().equals("N")) {
-            showVariables(budget, budgetController);
+
+            System.out.println("Would you like to view any specific variables? Y/N");
+
+            boolean done2 = false;
+
+            while (done2 == false) {
+                done2 = dialogueLoop(scan);
+
+                if (done2 == true) {
+                    System.out.println("Please select a variable: ");
+                    showVariables(budget, budgetController);
+                }
+            }
         }
 
         scan.close();
@@ -74,6 +86,17 @@ public class BudgetTrackerConsole {
 
     public static void save(Budget budget, BudgetController budgetController) {
 
+    }
+
+    public static boolean dialogueLoop(Scanner scan) {
+        if (scan.next().equals("Y")) {
+            return true;
+        } else if (scan.next().equals("N")) {
+            return false;
+        } else {
+            System.out.println("Please enter a valid value! Y/N");
+            return dialogueLoop(scan);           
+        }
     }
     
 }
