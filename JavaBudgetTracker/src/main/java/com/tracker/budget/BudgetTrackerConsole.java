@@ -78,7 +78,7 @@ public class BudgetTrackerConsole {
                     } else if (output.equals("N")){
                         budget.toString();
                         System.out.println("Would you like to end the program? Y/N");
-                        dialogueLoop(scan, output);
+                        //dialogueLoop(scan, output);
                     }
                 }
             }
@@ -91,8 +91,16 @@ public class BudgetTrackerConsole {
         
     }
 
-    public static void save(Budget budget, BudgetController budgetController) {
+    public static void save(BudgetController budgetController) {
+        System.out.println("saving...");
+        budgetController.saveBudget();
+        System.out.println("Save success!");
+    }
 
+    public static void load(BudgetController budgetController) {
+        System.out.println("loading...");
+        budgetController.loadBudget();
+        System.out.println("Load success!");
     }
 
     public static boolean dialogueLoop(Scanner scan, String output) {
