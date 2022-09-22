@@ -78,7 +78,11 @@ public class BudgetTrackerConsole {
                     } else if (output.equals("N")){
                         budget.toString();
                         System.out.println("Would you like to end the program? Y/N");
-                        //dialogueLoop(scan, output);
+                        if (dialogueLoop(scan, output)) {
+                            System.exit(0);
+                        } else {
+                            budget.toString();
+                        }
                     }
                 }
             }
